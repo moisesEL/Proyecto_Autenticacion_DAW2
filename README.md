@@ -1,7 +1,7 @@
 # Proyecto Autenticación DAW2
 ## 📝 Descripción general  
 
-El proyecto consiste en el desarrollo del **lado cliente (front-end)** de una aplicación web que proporcione la **interfaz gráfica de usuario (UI)** para realizar los casos de uso especificados:  
+El proyecto consiste en el desarrollo del **lado cliente (front-end)** de una aplicación web que proporcione la **interfaz gráfica de usuario (GUI)** para realizar los casos de uso especificados:  
 
 - **Customer Sign Up** (registro de usuario)  
 - **Sign In** (inicio de sesión)  
