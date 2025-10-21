@@ -1,59 +1,102 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/sign_up.css">
     </head>
     <body>
         <main>
-            <div class="leftDiv">
+            <div id="leftDiv">
                 <h1>Welcome</h1>
             </div>
-            <div class="rightDiv">
+            <div id="rightDiv">
                 <h1>Sign up</h1>
-                <form class="form" action="">
+                <form id="form">
                     <div>
                         <label for="email">Email:</label>
-                        <input type="text" placeholder="Tu email...">
+                        <input type="text" name="email" placeholder="Tu email...">
                     </div>
                     <div>
                         <label for="firstName">Nombre:</label>
-                        <input type="text" placeholder="Tu nombre...">
+                        <input type="text" name="firstName" placeholder="Tu nombre...">
                     </div>
                     <div>
                         <label for="middleInitial">Segundo nombre:</label>
-                        <input type="text" placeholder="La inicial de tu segundo nombre...">
+                        <input type="text" name="middleInitial" placeholder="La inicial de tu segundo nombre...">
                     </div>
                     <div>
-                        <label for="LastName">Apellido:</label>
-                        <input type="text" placeholder="Tu apellido...">
+                        <label for="lastName">Apellido:</label>
+                        <input type="text" name="lastName" placeholder="Tu apellido...">
                     </div>
                     <div>
                         <label for="password">Contraseña:</label>
-                        <input type="text" placeholder="Tu contraseña...">
+                        <input type="text" name="password" placeholder="Tu contraseña...">
                     </div>
                     <div>
                         <label for="street">Calle:</label>
-                        <input type="text" placeholder="El nombre tu calle...">
+                        <input type="text" name="street" placeholder="El nombre tu calle...">
                     </div>
                     <div>
                         <label for="city">Ciudad:</label>
-                        <input type="text" placeholder="El nombre de tu ciudad...">
+                        <input type="text" name="city" placeholder="El nombre de tu ciudad...">
                     </div>
                     <div>
                         <label for="state">Provincia:</label>
-                        <input type="text" placeholder="La provincia a la que perteneces (ej: Madrid)...">
+                        <input type="text" name="state" placeholder="La provincia a la que perteneces (ej: Madrid)...">
                     </div>
                     <div>
                         <label for="zip">Codigo postal:</label>
-                        <input type="text" placeholder="Tu codigo postal...">
+                        <input type="text" name="zip" placeholder="Tu codigo postal...">
                     </div>
                     <div>
                         <label for="phone">Telefono:</label>
-                        <input type="text" placeholder="Tu numero de telefono...">
+                        <input type="text" name="phone" placeholder="Tu numero de telefono...">
                     </div>
-                    <input class="button" type="submit" value="Sign up">
+                    <input id="button" type="submit" value="Sign up">
                     <a href="./sign_in.html">¿Ya tienes una cuenta?</a>
                 </form>
+                <script type="module">
+                    import create_customer from "../util/create_customer.js";
+                    document.getElementById('form').addEventListener('submit', (event) => {
+                            event.preventDefault(); // prevent form submit
+                            const form = event.target;
+                            let customer = {
+                                email: form.email.value,
+                                id: form.id.value,
+                                firstName: form.firstName.value,
+                                middleInitial: form.middleInitial.value,                    
+                                lastName: form.lastName.value,
+                                password: form.password.value,
+                                phone: form.phone.value,
+                                state: form.state.value,
+                                street: form.street.value,
+                                zip: form.zip.value
+                            };
+                            let emailRegex = new RegExp(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/);
+                            let passwordRegex = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,20}$/);
+                            if (!emailRegex.test(customer.email)) {
+                                alert("Your email is not a valid one.");
+                            }
+                            else if (!passwordRegex.test(customer.password)) {
+                                alert ("Your password has to be between 5 and 20 characters, and have at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character (ex: *)")
+                            }
+                            else {
+                                create_customer(customer);
+                            }
+                        }
+                    )
+                        /*  city: "New York"
+                            email: "jsmith@enterprise.net"
+                            firstName: "John"
+                            id: 102263301
+                            lastName: "Smith"
+                            middleInitial: "S."
+                            password: "abcd*1234"
+                            phone: 15556969699
+                            state: "New York"
+                            street: "163rd St."
+                            zip: 10032  */
+                </script>
             </div>
         </main>
     </body>

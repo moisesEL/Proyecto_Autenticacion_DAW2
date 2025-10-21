@@ -15,18 +15,18 @@ main {
     justify-content: space-evenly;
 }
 
-.leftDiv {
+#leftDiv {
     color: white;
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.leftDiv > h1 {
+#leftDiv > h1 {
     font-size: 80px;
 }
 
-.rightDiv {
+#rightDiv {
     height: 100vh;
     width: 100%;
     display: flex;
@@ -36,12 +36,12 @@ main {
     align-items: center;
 }
 
-.rightDiv > h1 {
+#rightDiv > h1 {
     font-size: 50px;
     color: white;
 }
 
-.form {
+#form {
     display: flex;
     flex-direction: column;
     padding: 30px;
@@ -52,19 +52,19 @@ main {
     background-color: rgb(255, 255, 255, .55);
 }
 
-.form > div {
+#form > div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 3px;
 }
 
-.form > div > label {
+#form > div > label {
     padding: 0px 0px 0px 2px;
     font-size: 1em;
 }
 
-.form > div > input {
+#form > div > input {
     height: 20px;
     border-radius: 6px;
     border: none;
@@ -72,7 +72,7 @@ main {
     font-size: 1em;
 }
 
-.button {
+#button {
     width: 100%;
     color: white;
     background-color: black;
@@ -84,7 +84,7 @@ main {
     padding: 6px 1px;
 }
 
-.button:hover {
+#button:hover {
     cursor: pointer;
 }
 
