@@ -1,0 +1,82 @@
+body {
+    font-family: 'Arial, Helvetica, sans-serif';
+    background-image: url('../assets/Crypto\ login\ background.jpg');
+    background-repeat:no-repeat;
+    background-size: cover;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.Welcome{
+    color: #ffffff;
+    font-size: 60px;
+    position: absolute;
+    top: 400px;
+    left: 120px;
+    /* sombreado */
+    text-shadow: 
+        1px 1px 2px black,
+        0 0 20px rgb(0, 0, 0),
+        0 0 0.20px rgb(0, 0, 0);
+}
+.Sign{
+    color: aliceblue;
+    font-size: 30px;
+    position: absolute;
+    top: 290px;
+    left: 1100px;
+    text-shadow:
+        1px 1px 6px black,
+        0 0 20px rgb(0, 0, 0),
+        0 0 0.20px rgb(0, 0, 0);
+}
+
+.login-container {
+  background-color: rgba(255, 255, 255, 0.55); /* Fondo semitransparente */
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  text-align: left;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  position: relative;
+  top: 450px;
+  left: 1050px;
+  padding: 25px;
+}
+
+.login-container input {
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: #D9D9D9;
+  border-radius: 5px;
+  margin: 10px 0 30px 0;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+ 
+}
+
+.create_account {
+  text-decoration: underline;
+  text-align:left;
+  margin: 20px;
+  font-size: 16px;
+  color: rgb(0, 0, 0);
+}
