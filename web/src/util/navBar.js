@@ -1,5 +1,5 @@
 const navBar = document.createElement("navbar");
-
+// Componente de navbar
 navBar.innerHTML = `<header>
                 <div class="logo">
                     <img class="logoIcon" src="./src/assets/Logo.png"/></image>
