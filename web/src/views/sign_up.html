@@ -43,7 +43,7 @@
                     <div>
                         <label for="state">State:</label>
                         <input type="text" name="state" placeholder="Your state (ex: Madrid)...">
-                    </div>
+                    </div> 
                     <div>
                         <label for="zip">Zip:</label>
                         <input type="text" name="zip" placeholder="Your zip code...">
@@ -74,10 +74,12 @@
                             };
                             try {
                                 document.querySelectorAll('#input_error').forEach(input => input.id = '');
+                                document.querySelectorAll('#server_error').forEach(span => span.remove());
                                 document.getElementById('form').querySelectorAll('span').forEach(span => span.remove());
                                 let emailRegex = new RegExp(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/);
                                 let passwordRegex = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{0,20}$/);
                                 let phoneRegex = new RegExp(/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/);
+                                let zipRegex = new RegExp(/^\d{1,6}$/);
                                 if (!emailRegex.test(customer.email)) {
                                     throw {input: "email", message: "Email not valid."};
                                 }
@@ -102,39 +104,50 @@
                                 if (customer.state > 255 || customer.state == '' || customer.state.includes('\'')) {
                                     throw {input: "state", message: "Your state is not valid."}
                                 }
-                                if (customer.zip > 255 || customer.zip == '' || customer.zip.includes('\'')) {
-                                    throw {input: "zip", message: "Your zip is not valid."}
+                                if (!zipRegex.test(customer.zip)) {
+                                    throw {input: "zip", message: "Your zip is not valid.\nIt should be a number"}
                                 }
                                 if (!phoneRegex.test(customer.phone)) {
                                     throw {input: "phone", message: "Your phone is not valid."}
                                 }
-                                create_customer(customer);
+                                create_customer(customer)
+                                .then(response => {
+                                    switch (response.status) {
+                                        case response.status >= 500:
+                                            throw {status: 500, message: "The server is not working, try again later."}
+                                        case 404:
+                                            throw {status: 404, message: "The server is not working, try again later."}
+                                            break;
+                                        case 403:
+                                            throw {status: 403, message: "The email is already taken, wanna try to log in?"}
+                                        case response.status > 400 && response.status < 500:
+                                            throw {status: response.status, message: "Something was wrong"}
+                                        default:
+                                            break;
+                                    }
+                                    window.location.replace("src/views/sign_in.html");
+                                })
+                                .catch(err => {
+                                    const error_message = document.createElement('span');
+                                    error_message.id = "server_error";
+                                    error_message.style = 'padding:5px; background-color:rgb(255, 255, 255); border: 2px solid red; margin-bottom: 5px';
+                                    error_message.innerText = err.message;
+                                    if (!document.getElementById(`${err.input}`)) {
+                                        form.parentNode.insertBefore(error_message, form);
+                                    }
+                                })
                             } catch (err) {
                                 form[`${err.input}`].id = "input_error";
                                 const error_message = document.createElement('span');
                                 error_message.style = 'color:red;';
                                 error_message.innerText = err.message;
-                                error_message.id = err.input;
+                                error_message.id = `${err.input}_error`;
                                 if (!document.getElementById(`${err.input}`)) {
                                     form[`${err.input}`].parentNode.appendChild(error_message);
                                 }
-                                console.log(`input: ${err.input}, message: ${err.message}`);
                             }
                         }
                     )
-                    /*  Customer mockup data:  
-                            city: "New York"
-                            email: "jsmith@enterprise.net"
-                            firstName: "John"
-                            id: 102263301
-                            lastName: "Smith"
-                            middleInitial: "S."
-                            password: "abcd*1234"
-                            phone: 15556969699
-                            state: "New York"
-                            street: "163rd St."
-                            zip: 10032
-                    */
                 </script>
             </div>
         </main>
